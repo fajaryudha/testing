@@ -1,10 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from '../App';
+import { shallow, configure } from 'enzyme';
+import App from 'components/App';
+import CommentBox from "components/CommentBox";
+import CommentList from "components/CommentList";
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+
+let wrapped;
+beforeEach(() => {
+    wrapped = shallow(<App />);
+});
+
+
+configure({ adapter: new Adapter() });
+it('shows a comment box', () => {
+    expect(wrapped.find(CommentBox).length).toEqual(1);
+});
 
 it('shows a comment box', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<App />, div);
-    expect(div.innerHTML).toContain('Comment Box'); 
-    ReactDOM.unmountComponentAtNode(div);
+    expect(wrapped.find(CommentList).length).toEqual(1);
 });
