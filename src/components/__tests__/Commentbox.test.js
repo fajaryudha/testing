@@ -3,10 +3,15 @@ import { mount, configure } from 'enzyme';
 import CommentBox from "components/CommentBox";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
+import Root from 'Root';
+
 configure({ adapter: new Adapter() });
 let wrapper;
 beforeEach(() => {
-    wrapper = mount(<CommentBox />);
+    wrapper = mount(
+        <Root>
+            <CommentBox />
+        </Root>);
 });
 
 afterEach(() => {
@@ -24,7 +29,7 @@ describe('the text area', () => {
         });
         wrapper.update();
     });
-    
+
     it('has a text area that user can type in', () => {
         wrapper.find('textarea').simulate('change', {
             target: { value: 'new comment' }
